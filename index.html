@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turnos EuroClean</title>
+  <link href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #005eb8;
+    }
+    input, select, textarea {
+      display: block;
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #005eb8;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reserva tu turno en EuroClean</h1>
+
+  <label>Fecha:</label>
+  <input type="text" id="fecha" placeholder="Selecciona una fecha" readonly>
+
+  <label>Hora:</label>
+  <select id="hora">
+    <option value="">Selecciona una hora</option>
+    <option value="09:00">09:00</option>
+    <option value="10:00">10:00</option>
+    <option value="11:00">11:00</option>
+    <option value="12:00">12:00</option>
+    <option value="13:00">13:00</option>
+    <option value="14:00">14:00</option>
+    <option value="15:00">15:00</option>
+    <option value="16:00">16:00</option>
+  </select>
+
+  <label>Nombre:</label>
+  <input type="text" id="nombre" placeholder="Tu nombre">
+
+  <label>Tipo de Vehículo:</label>
+  <input type="text" id="vehiculo" placeholder="Ej: SUV, Sedán, etc.">
+
+  <label>Observaciones:</label>
+  <textarea id="observaciones" rows="3" placeholder="Ej: Tiene barro, no abrir baúl, etc."></textarea>
+
+  <button onclick="reservarTurno()">Reservar Turno</button>
+
+  <p id="respuesta"></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
