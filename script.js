@@ -20,23 +20,28 @@ function reservarTurno() {
     return;
   }
 
-  const params = new URLSearchParams();
-  params.append("fecha", fecha);
-  params.append("hora", hora);
-  params.append("nombre", nombre);
-  params.append("vehiculo", vehiculo);
-  params.append("observaciones", observaciones);
+  const formBody = new URLSearchParams();
+  formBody.append("fecha", fecha);
+  formBody.append("hora", hora);
+  formBody.append("nombre", nombre);
+  formBody.append("vehiculo", vehiculo);
+  formBody.append("observaciones", observaciones);
 
   fetch(URL, {
     method: "POST",
-    body: params
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+    },
+    body: formBody.toString()
   })
     .then(res => res.text())
-    .then(data => {
-      if (data.trim() === "ok") {
+    .then(text => {
+      if (text.trim() === "ok") {
         document.getElementById("respuesta").innerText = "✅ ¡Turno reservado con éxito!";
+      } else if (text.trim() === "ocupado") {
+        document.getElementById("respuesta").innerText = "❌ Ese turno ya está ocupado.";
       } else {
-        document.getElementById("respuesta").innerText = "❌ Ese turno ya está ocupado. Probá otro.";
+        document.getElementById("respuesta").innerText = "⚠️ Respuesta inesperada.";
       }
     })
     .catch(err => {
