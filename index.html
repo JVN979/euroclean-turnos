@@ -3,65 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Turnos EuroClean</title>
-  <link href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" rel="stylesheet" />
+  <title>Reserva de Turno - EuroClean</title>
+  <link rel="stylesheet" href="pikaday.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      color: #005eb8;
-    }
-    input, select, textarea {
-      display: block;
-      margin-bottom: 10px;
-      padding: 8px;
-      width: 100%;
-      max-width: 400px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #005eb8;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+    body { font-family: sans-serif; max-width: 400px; margin: 20px auto; }
+    input, select, textarea, button { width: 100%; margin: 5px 0; padding: 8px; }
+    .success { color: green; font-weight: bold; }
+    .error { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Reserva tu turno en EuroClean</h1>
+  <h1>Reservá tu turno</h1>
+  <form id="turnoForm" action="https://script.google.com/macros/s/AKfycbxSBwEKb6C_VjQC1HlVmDbC_FZRFPN1W_4bLGbJT8CBZgIp9wsRm9saBrvkhx_HHYpk/exec" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+    <input type="text" name="fecha" id="fecha" placeholder="Fecha" required>
+    <select name="hora" id="hora" required>
+      <option value="">Hora</option>
+      <option>09:00</option>
+      <option>10:00</option>
+      <option>11:00</option>
+      <option>12:00</option>
+      <option>13:00</option>
+      <option>14:00</option>
+      <option>15:00</option>
+      <option>16:00</option>
+      <option>17:00</option>
+    </select>
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="vehiculo" placeholder="Tipo de Vehículo" required>
+    <textarea name="observaciones" placeholder="Observaciones"></textarea>
+    <button type="submit">Reservar</button>
+    <div id="mensaje"></div>
+  </form>
 
-  <label>Fecha:</label>
-  <input type="text" id="fecha" placeholder="Selecciona una fecha" readonly>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-  <label>Hora:</label>
-  <select id="hora">
-    <option value="">Selecciona una hora</option>
-    <option value="09:00">09:00</option>
-    <option value="10:00">10:00</option>
-    <option value="11:00">11:00</option>
-    <option value="12:00">12:00</option>
-    <option value="13:00">13:00</option>
-    <option value="14:00">14:00</option>
-    <option value="15:00">15:00</option>
-    <option value="16:00">16:00</option>
-  </select>
+  <script src="pikaday.js"></script>
+  <script>
+    var picker = new Pikaday({
+      field: document.getElementById('fecha'),
+      format: 'YYYY-MM-DD'
+    });
 
-  <label>Nombre:</label>
-  <input type="text" id="nombre" placeholder="Tu nombre">
+    var submitted = false;
+    document.getElementById('turnoForm').addEventListener('submit', function() {
+      submitted = true;
+    });
 
-  <label>Tipo de Vehículo:</label>
-  <input type="text" id="vehiculo" placeholder="Ej: SUV, Sedán, etc.">
-
-  <label>Observaciones:</label>
-  <textarea id="observaciones" rows="3" placeholder="Ej: Tiene barro, no abrir baúl, etc."></textarea>
-
-  <button onclick="reservarTurno()">Reservar Turno</button>
-
-  <p id="respuesta"></p>
-
-  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-  <script src="script.js"></script>
+    document.getElementById('hidden_iframe').addEventListener('load', function(){
+      if(submitted){
+        document.getElementById('mensaje').innerHTML = "<p class='success'>✅ ¡Turno reservado con éxito!</p>";
+        document.getElementById('turnoForm').reset();
+        submitted = false;
+      }
+    });
+  </script>
 </body>
 </html>
