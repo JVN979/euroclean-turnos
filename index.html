@@ -14,48 +14,26 @@
 </head>
 <body>
   <h1>Reservá tu turno</h1>
-  <form id="turnoForm" action="https://script.google.com/macros/s/AKfycbxSBwEKb6C_VjQC1HlVmDbC_FZRFPN1W_4bLGbJT8CBZgIp9wsRm9saBrvkhx_HHYpk/exec" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
-    <input type="text" name="fecha" id="fecha" placeholder="Fecha" required>
-    <select name="hora" id="hora" required>
-      <option value="">Hora</option>
-      <option>09:00</option>
-      <option>10:00</option>
-      <option>11:00</option>
-      <option>12:00</option>
-      <option>13:00</option>
-      <option>14:00</option>
-      <option>15:00</option>
-      <option>16:00</option>
-      <option>17:00</option>
-    </select>
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="text" name="vehiculo" placeholder="Tipo de Vehículo" required>
-    <textarea name="observaciones" placeholder="Observaciones"></textarea>
-    <button type="submit">Reservar</button>
-    <div id="mensaje"></div>
-  </form>
-
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+  <input type="text" id="fecha" placeholder="Fecha" required>
+  <select id="hora" required>
+    <option value="">Hora</option>
+    <option>09:00</option>
+    <option>10:00</option>
+    <option>11:00</option>
+    <option>12:00</option>
+    <option>13:00</option>
+    <option>14:00</option>
+    <option>15:00</option>
+    <option>16:00</option>
+    <option>17:00</option>
+  </select>
+  <input type="text" id="nombre" placeholder="Nombre" required>
+  <input type="text" id="vehiculo" placeholder="Tipo de Vehículo" required>
+  <textarea id="observaciones" placeholder="Observaciones"></textarea>
+  <button onclick="reservarTurno()">Reservar</button>
+  <div id="respuesta"></div>
 
   <script src="pikaday.js"></script>
-  <script>
-    var picker = new Pikaday({
-      field: document.getElementById('fecha'),
-      format: 'YYYY-MM-DD'
-    });
-
-    var submitted = false;
-    document.getElementById('turnoForm').addEventListener('submit', function() {
-      submitted = true;
-    });
-
-    document.getElementById('hidden_iframe').addEventListener('load', function(){
-      if(submitted){
-        document.getElementById('mensaje').innerHTML = "<p class='success'>✅ ¡Turno reservado con éxito!</p>";
-        document.getElementById('turnoForm').reset();
-        submitted = false;
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
